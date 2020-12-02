@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container">
+        <div class="jumbotron bg-info">
+            <h2>Welcome to Pitch Website</h2>
+        </div>
+        <div class="categories">
+            <ul>
+                {% for pitch in all_pitch %}
+                   <li class="">
+                        <p> {{ pitch.project_name }} </p>
+                   </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

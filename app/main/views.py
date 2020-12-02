@@ -26,3 +26,10 @@ def create_pitch(user_id):
 
     return render_template('/pitch/new_pitch.html', pitch_form = pitch_form)
 
+@main.route('/pitch/all/<category>', methods = ['GET'])
+def get_all_pitch(category):
+    all_pitch = Pitch.query.filter_by(category = category)
+    if all_pitch:
+        return render_template('/pitch/pitch_list.html', all_pitch = all_pitch)
+
+    return render_template('/pitch/new_pitch.html')
