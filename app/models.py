@@ -9,9 +9,19 @@ class Pitch(db.Model):
     pitch_description = db.Column(db.String(255))
     project_image = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    comments = db.relationship('Comment', backref = 'pitch', lazy = "dynamic")
 
     def __repr__(self):
         return f'Pitch {self.project_name}'
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key = True)
+    comment_description = db.Column(db.String(255))
+    pitch_id = db.Column(db.Integer, db.ForeignKey('pitches.id'))
+
+    def __repr__(self):
+        return f'Picth {self.comment_description}'
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -19,7 +29,7 @@ class User(db.Model):
     fullname = db.Column(db.String(255))
     email = db.Column(db.String(255), unique = True, index = True)
     password = db.Column(db.String(255))
-    pitches = db.relationship('Pitch', backref = 'pitch', lazy = "dynamic")
+    pitches = db.relationship('Pitch', backref = 'user', lazy = "dynamic")
 
     @property
     def password(self):
